@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Hyodae jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  
+</head>
+
+<body>
+
+    <!-- The event object -->
+    <h3> jQuery24 : The event object </h3>
+
+    <p> Click anywhere on the picture </p>
+    <img id='imgEventObject' src = 'https://i.ytimg.com/vi/aZUl3rteEDY/maxresdefault.jpg' width='480'><br>
+    
+    <div id='divEventMsg'></div>
+    
+    <script>
+        $(function(){
+            var time = 0;
+            var divEventMsg = document.getElementById("divEventMsg");
+
+            $('#imgEventObject').on('click', function(){
+                if (time!=0) {
+                    divEventMsg.innerHTML = "It has been "+(event.timeStamp-time)/1000 + " seconds since last click";
+                    time = event.timeStamp;
+                }
+                else {
+                    time = event.timeStamp;
+                    divEventMsg.innerHTML = "position of click is " + event.pageX +", "+event.pageY;
+                }
+            });
+        });
+        
+    </script>    
+    
+    <br><br><hr>
+    <!-- working with events -->
+    <h3> jQuery23 : working with events </h3>
+    
+    <h4> Clicking Image will remove the last item....</h4><br>
+    <img id='imgEvent' src = 'http://res.freestockphotos.biz/pictures/15/15106-illustration-of-a-red-close-button-pv.png' width='100'>
+    <p class='clsEvent'> 1 </p>
+    <p class='clsEvent'> 2 </p>
+    <p class='clsEvent'> 3 </p>
+    <p class='clsEvent'> 4 </p>
+    <p class='clsEvent'> 5 </p>
+    
+    <script>
+        $(function(){
+            $('#imgEvent').on('click', function(){
+                $('.clsEvent:last').remove();
+            });
+        });   
+    </script>
+    
+    
+    <br><br><hr>
+    <!-- before() and after() -->
+    <h3> jQuery22 : before() and after() </h3>
+
+    <h4> Menu </h4>
+    <p class='clsMenu'> Salad </p>
+    <p class='clsMenu'> Chicken* </p>
+    <p class='clsMenu'> Cheeseburger* </p>
+    <p class='clsMenu'> Spaghetti </p>
+    <p class='clsMenu'> Steak* </p>
+    <button id='btnMenu'> Add warnings </button>
+    
+    <script>
+        $(function(){
+            $('#btnMenu').click(function(){
+                $('.clsMenu:contains("*")').after("<p class='clsSmall'> Consuming raw or undercooked meat can be hazardous. </p>");
+            });
+        });   
+    </script>
+    <style>
+        .clsSmall {
+            color: red;
+            font-size: 10px;
+        }
+    </style>
+    
+    <br><br><hr>
+    <!-- Using .wrap() -->
+    <h3> jQuery21 : Using .wrap() </h3>
+    
+    <p class='clsWrap'> Simple paragraph </p>
+    <p class='clsWrap'> Simple paragraph </p>
+    <p class='clsWrap'> Simple paragraph </p>
+    <button id='btnWrap'> Wrap my paragraphs </button>
+    
+    <script>
+        $(function(){
+            $('#btnWrap').click(function(){
+                $('.clsWrap').wrap('<div class="divWrap"></div>');
+            });
+        });   
+    </script>
+    <style>
+        .divWrap {
+            background-color: blue;
+            color: white;
+            border: 2px dotted green;
+        }
+    </style>
+    
+    
+    <br><br><hr>
+    <!-- Dynamically Resizing elements -->
+    <h3> jQuery20 : Dynamically Resizing elements </h3>
+    
+    <img id='imgIter' src = "https://www.iter.org/img/resize-900-90/www/content/com/Lists/WebText_2014/Attachments/74/crane_c5_29-11-2018-north_1.jpg" width='400'>
+    
+    <p> Scale (i.e 0.5 / 1 / 2 / 3 ...) </p>
+    <input type='text' id='imgScale' />
+    <button id='btnScaleImage'> Scale my Image ! </button>
+    
+    <script>
+        $(function(){
+            $('#btnScaleImage').click(function(){
+                $('#imgIter').width($('#imgScale').val() * $('#imgIter').width());
+                //$('#imgIter').height($('#imgScale').val() * $('#imgIter').height());
+            });
+        });   
+    </script>    
+    
+    <br><br><hr>
+    <!-- Alternative way to use append -->
+    <h3> jQuery19 : Alternative way to use append </h3>
+
+    <p class='clsAppendContent1'> This is a paragraph. 1</p>
+    <p class='clsAppendContent1'> This is a paragraph. 0</p>
+    <p class='clsAppendContent1'> This is a paragraph. 4</p>
+    <p class='clsAppendContent1'> This is a paragraph. 3</p>
+    <p class='clsAppendContent1'> This is a paragraph. 2</p>
+    <p class='clsAppendContent1'></p>
+    <button id='btnAppendAlternative'> Sort </button>
+    
+    <script>
+        $(function(){
+            $('#btnAppendAlternative').click(function(){
+                $('.clsAppendContent1').each(function(item){
+                    $('.clsAppendContent1:last').append($('.clsAppendContent1:contains("'+item+'")'));
+                });
+            });
+        });   
+    </script>
+    
+    
+    <br><br><hr>
+    <!-- Appending content -->
+    <h3> jQuery18 : Appending content </h3>
+    
+    <p class='clsAppendContent'> This is a paragraph. </p>
+    <p class='clsAppendContent'> This is a paragraph. </p>
+    <p class='clsAppendContent'> This is a paragraph. </p>
+    <p class='clsAppendContent'> This is a paragraph. </p>
+    <button id='btnAppend'> Click Me! (Append Number) </button>
+    
+    <script>
+        $(function(){
+            $('#btnAppend').click(function(){
+                $('.clsAppendContent').each(function(index){
+                    $(this).append("#"+(index+1));
+                });
+            });
+        });
+    </script>
+    
+    
+    
+    <br><br><hr>
+    <!--  More rewriting within an element -->
+    <h3> jQuery17 : More rewriting within an element </h3>
+    
+    <h4 id='welcome1'> Welcome sign up or sign in </h4>
+    <button id='btnLoginSignin'> Log In </button>
+    
+    <script>
+        $(function(){
+            $('#btnLoginSignin').click(function(){
+                $('#welcome1').text('Welcome Back');
+                $('#btnLoginSignin').text('Log Out');
+            });
+        });
+    </script>
+    
+    
+    <br><br><hr>
+    <!-- Rewriting html within an element -->
+    <h3> jQuery16 : Rewriting html within an element </h3>
+    
+    <div id='welcome'></div>
+    <div class='status'></div>
+    <button id='btnLogon'> Log On </button>
+    <div class='status'></div>
+    
+    <script>
+        $(function(){
+            $('#btnLogon').click(function(){
+                $('#welcome').html("<h4> Welcome ! </h4>");
+                $('.status').html('<p> Currently Logged in. </p>');
+            });
+        });
+    </script>    
+    
+    <br><br><hr>
+    <!-- Changing attribute values dynamically -->
+    <h3> jQuery15 : Changing attribute values dynamically </h3>
+    
+    <img id='moon' src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/1200px-FullMoon2010.jpg' width='320'><br>
+    <button id='btnWakeup'> Wake up! </button>
+    
+    <script>
+        $(function(){
+            $('#btnWakeup').click(function(){
+                $('#moon').attr('src', 'https://www.universetoday.com/wp-content/uploads/2014/09/sun1.jpg');
+            });
+        });
+    </script>
+    
+    
+    <br><br><hr>
+    <!-- loops and .slice() -->
+    <h3> jQuery14 : loops and .slice() </h3>
+    
+    <p class='clsPara'> This is a paragrapsh </p>
+    <p class='clsPara'> This is a paragrapsh </p>
+    <p class='clsPara'> This is a paragrapsh </p>
+    <p class='clsPara'> This is a paragrapsh </p>
+    <p class='clsPara'> This is a paragrapsh </p>
+    <p class='clsPara'> This is a paragrapsh </p>
+    <button id='btnLoopSlice'> Bold! </button>
+
+    <script>
+        $(function(){ 
+            $('#btnLoopSlice').click(function(){
+                $('.clsPara').slice(2,4).css('font-weight','bold');
+            });
+        });
+    </script>
+    
+    <br><br><hr>
+    <!-- Looping through elements with each -->
+    <h3> jQuery13 : Looping through elements with each </h3>
+    
+    <h4> Paragraph Limiter </h4>
+    <p> First </p>
+    <p> Second </p>
+    <p> unwanted </p>
+    <p> unwanted </p>
+    <p> unwanted </p>
+    <button id='btnAgeLimiter'> Remove unwanted paragraph </button>
+
+    <script>
+        /*13 */
+        $(function(){
+            $('#btnAgeLimiter').click(function(){
+                $('p:contains("unwanted")').each(function(item){
+                    $(this).remove();
+                });
+            });
+        });
+    </script>
+    
+    
+    <br><br><hr>
+    <!-- Working with form elements -->
+    <h3> jQuery12 : Working with form elements </h3>
+    
+    <h4> Age Restrictor </h4>
+    <form> 
+        <input type='checkbox' /> Check if over 16 <br>
+        <button id='btnAgeRestrictor'> Submit </button>
+    </form>
+
+    <script>
+        /* 12 */
+        $(function(){
+            $('#btnAgeRestrictor').click(function(){
+                if ($('input:checked').size()==1) {
+                    alert('You are old enough to proceed');
+                }
+                else {
+                    alert ('User is not old enough');
+                }
+            })
+        });
+    </script>    
+    
+    <br><br><hr>
+    <!-- Selection by attribute value pairs -->
+    <h3> jQuery11 : Selection by attribute value pairs </h3>
+    
+    <a href='www.google.com'> Search </a>
+    <a href='www.youtube.com'> Funny Videos</a>
+
+    <script>
+        /* 11 */
+        $(function(){
+            //$('a[href]').remove();                      // All links will be removed
+            $('a[href="www.youtube.com"]').remove();    // Only YouTube link will be removed
+        });
+    </script>    
+    
+    
+    <br><br><hr>
+    <!--  Making content based selections -->
+    <h3> jQuery10 : Making content based selections </h3>
+
+    <p> I like oranges </p>
+    <h4> paragraph - oranges will be removed </h4>
+    <p> What about orange juice?</p>
+
+    <script>
+        /* 10 */
+        $(function() {
+            $(('p:contains("oranges")')).remove();
+        });
+    </script>    
+    
+    
+    <br><br><hr>
+    <!--  slideUp() and slideDown() -->
+    <h3> jQuery09 : slideUp() and slideDown() </h3>
+    
+    <div id='divSlideUpDown'> 
+        <br>
+        <p> This </p>
+        <p> List </p>
+        <p> Collapses </p>
+        <p> Itself </p>
+        <p> At every 1300ms </p>
+        <br>
+    </div>
+
+    <script>
+        /* 09 */
+        $(function run1(){
+            $('#divSlideUpDown').slideUp(1300);
+            $('#divSlideUpDown').slideDown(1300, run1);
+        });
+    </script>    
+    
+    
+    <br><br><hr>
+    <!--  jQuery Selectors -->
+    <h3> jQuery08 : jQuery Selectors </h3>
+    
+    <h4 id='headline'> jQuery Testing !</h4>
+    <p> This just in! </p>
+    <h4> Alternate header </h4>
+    <p> Almost at the end </p>
+    <p> The End. </p>
+
+    <script>
+        /* 08 */
+        $(function(){
+            $('#headline').remove();
+            //$('*').remove();
+            //$('body *:not(p)').remove();
+            //$('body *:odd(p)').remove();
+        });
+    </script>
+
+    
+    <br><br><hr>
+    <!--  show() and hide() -->
+    <h3> jQuery07 : show() and hide() </h3>
+    <div id="divHideShow"></div>
+    <p> Recursion! at 1000 ms </p>
+
+    <script>
+        /* 07 */
+        $( function run() {
+            $('#divHideShow').hide(1000);
+            $('#divHideShow').show(1000, run);
+        });
+    </script>
+    <style>
+        #divHideShow {
+            height: 150px;
+            width: 150px;
+            border-radius: 100%;
+            background-color: #00FFAA;
+        }
+    </style>    
+    
+    
+    <br><br><hr>
+    <!--  Using .insertAfter() -->
+    <h3 id='insertH3'> jQuery06 : Using .insertAfter() </h3>
+    <button id='btnAddParagraph'> Add Paragraph!</button>
+
+    <script>
+        /* 06 */
+        $( function() {
+            $('#btnAddParagraph').click(function(){
+                $("<p>This is a new paragraph.</p>").insertAfter($('#insertH3'));        
+            });
+        });
+    </script>    
+    
+    
+    <br><br><hr>
+    <!--  Selecting the Last element -->
+    <h3> jQuery05 : Selecting the Last element </h3>
+    
+    <p class='pSelect'> First paragraph </p>
+    <div>
+        <p class='pSelect'> first child of division paragraph</p>
+        <p class='pSelect'> second child of division paragraph</p>
+    </div>
+    <p class='pSelect'> Last paragraph </p>
+
+    <script>
+        /* 05 */
+        $( function() {
+            $('.pSelect:first').remove();  // first paragraph will be removed
+            $('.pSelect:last').remove();   // last paragraph will be removed
+            $('div p:first-child').remove();  // first div child will bre removed
+        });
+    </script>    
+    
+    
+    <br><br><hr>
+    <!--  jQuery equivalent of onLoad() -->
+    <h3> jQuery04 : jQuery equivalent of onLoad() </h3>
+
+    <p> Below will not be displayed.</p>
+    <p id='notloaded_P'> This paragraph will be be loaded</p>
+    
+    <script>
+        /* 04 */
+        $( function() {
+            $('#notloaded_P').detach();
+        });
+    </script>
+    
+    
+    
+    <br><br><hr>
+    <!-- Selection by CSS Style Method -->
+    <h3> jQuery03 : Selection by CSS Style </h3>
+
+    <p> This is the first paragraph </p>
+    <h4 class='fav'> This text should be red. </h4>
+    <p class='fav'> This is also a red paragraph. </p>
+    <div id="selectionCSS" />
+    <script>
+        var selectionCSS = document.getElementById("selectionCSS");
+        selectionCSS.innerHTML = "There are " + $('.fav').size() + " favorite tags!";
+    </script>
+    
+    <style>
+        /* 03 */
+        .fav {
+            color:red;
+        }
+    </style>
+    
+    
+    <br><br><hr>
+    <!-- size() Method -->
+    <h3> jQuery02 : size() Method </h3>
+    
+    <p> Paragraph </p>
+    <p> Paragraph </p>
+    
+    <h4> Paragraph</h4>
+    <p> Paragraph </p>
+    <div id ="divSize" />
+    
+    <script>
+        var divSize = document.getElementById("divSize");
+        divSize.innerHTML = "There are " + $('p').size()+ ' paragraphs <br>';
+    </script>
+    
+    
+    <br><hr>
+    <!-- Selecting By Tag -->
+    <h3> jQuery01 : Seclecting By Tag </h3>
+    <div class="class1">
+        <p> sample paragraph 1</p>
+        <p> sample 2</p>
+    </div>
+    <h4> Bonus header </h4>
+    <script>
+        //$('p').detach();
+        $('.class1').detach();
+    </script>
+    
+    <p> Last paragraph </p>
+    
+</body>
+</html>
